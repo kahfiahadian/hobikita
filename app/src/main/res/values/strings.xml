@@ -9,4 +9,6 @@
         <item>Kompetisi</item>
         <item>Jual Beli</item>
     </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="APIkey">AIzaSyBdpXza8mNYQj-Slwn9Mvo1p3_U168O7g8</string>
 </resources>

@@ -40,7 +40,7 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.MyViewHolder
             super(view);
             imgPhoto = (ImageView) view.findViewById(R.id.imgPhoto);
             tvName = (TextView) view.findViewById(R.id.tvNama);
-            //tvDesc = (TextView) view.findViewById(R.id.tvDeskripsi);
+            tvDesc = (TextView) view.findViewById(R.id.tvDescription);
             tvTitle = (TextView) view.findViewById(R.id.tvTitle);
             tvLoc = (TextView) view.findViewById(R.id.tvLocation);
             tvComment = (TextView) view.findViewById(R.id.tvComment);

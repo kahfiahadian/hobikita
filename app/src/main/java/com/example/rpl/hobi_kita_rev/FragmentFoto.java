@@ -167,10 +167,10 @@ public class FragmentFoto extends Fragment {
                     for (final DataSnapshot ds : dataSnapshot.getChildren()) {
                         FotoModel photo = ds.getValue(FotoModel.class);
 
-                        if(photo.getEmail().equals(Constant.currentUser.getEmail())) {
-                            photoList.add(photo); //dimasukkan list photo
-                            mAdapter.notifyDataSetChanged(); //refresh adapter
-                        }
+
+                        photoList.add(photo); //dimasukkan list photo
+                        mAdapter.notifyDataSetChanged(); //refresh adapter
+
                         swipeRefresh.setRefreshing(false);
                     }
                 }

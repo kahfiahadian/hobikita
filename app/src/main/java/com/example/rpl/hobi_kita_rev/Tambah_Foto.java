@@ -26,6 +26,10 @@ import android.widget.AdapterView.OnItemSelectedListener;
 import com.esafirm.imagepicker.features.ImagePicker;
 import com.esafirm.imagepicker.features.ReturnMode;
 import com.esafirm.imagepicker.model.Image;
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.storage.StorageReference;
@@ -67,7 +71,7 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
             "Sewa"
     };
 
-
+    private int PLACE_PICKER_REQUEST = 1;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -76,7 +80,7 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
         btnChoose.setOnClickListener(this);
         btnPost.setOnClickListener(this);
         pbDialog = new ProgressDialog(this);
-
+        tvLoc.setOnClickListener(this);
         spin = (Spinner) findViewById(R.id.spin);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, kategori);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -130,15 +134,27 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                         .enableLog(false) // disabling log
                         .start(); // start image picker activity with request code
                 break;
+            case R.id.tvLoc:
+                PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
+                try {
+                    //menjalankan place picker
+                    startActivityForResult(builder.build(Tambah_Foto.this), PLACE_PICKER_REQUEST);
+
+                    // check apabila <a title="Solusi Tidak Bisa Download Google Play Services di Android" href="http://www.twoh.co/2014/11/solusi-tidak-bisa-download-google-play-services-di-android/" target="_blank">Google Play Services tidak terinstall</a> di HP
+                } catch (GooglePlayServicesRepairableException e) {
+                    e.printStackTrace();
+                } catch (GooglePlayServicesNotAvailableException e) {
+                    e.printStackTrace();
+                }
             case R.id.btnPost:
                 //validasi kosong
                 if(tvTitle.getText().toString().isEmpty()) {
-                    tvTitle.setError("Harus diisi");
+                    tvTitle.setError("Judul Harus diisi");
                     return;
                 }
                 //validasi kosong
                 if(tvPost.getText().toString().isEmpty()) {
-                    tvPost.setError("harus diisi");
+                    tvPost.setError("Deskripsi harus diisi");
                     return;
                 }
                 if (tvLoc.getText().toString().isEmpty()) {
@@ -147,7 +163,7 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                 }
                 //validasi gambar sudah dipilih
                 if(!isPicChange) {
-                    Toast.makeText(this, "Choose The Photo!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Silahkan Masukkan Foto/Gambar", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -203,13 +219,13 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                                     key,
                                     photoUrl.toString(),
                                     tvTitle.getText().toString(),
-                                    tvPost.getText().toString(),
+                                    tvLoc.getText().toString(),
                                     Constant.currentUser.getEmail().split("@")[0],
                                     Constant.currentUser.getEmail(),
-                                    tvLoc.getText().toString()
+                                    tvPost.getText().toString()
                             ));
                             pbDialog.dismiss();
-                            Toast.makeText(Tambah_Foto.this, "Uploaded!", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Tambah_Foto.this, "Post Berhasil!", Toast.LENGTH_SHORT).show();
                             finish();
                         } else if (kondisi.equals("Kompetisi")) {
                             // taskSnapshot.getMetadata() contains file metadata such as size, content-type, and download URL.
@@ -221,10 +237,10 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                                     key,
                                     photoUrl.toString(),
                                     tvTitle.getText().toString(),
-                                    tvPost.getText().toString(),
+                                    tvLoc.getText().toString(),
                                     Constant.currentUser.getEmail().split("@")[0],
                                     Constant.currentUser.getEmail(),
-                                    tvLoc.getText().toString()));
+                                    tvPost.getText().toString()));
                             pbDialog.dismiss();
                             Toast.makeText(Tambah_Foto.this, "Uploaded!", Toast.LENGTH_SHORT).show();
                             finish();
@@ -238,10 +254,10 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                                     key,
                                     photoUrl.toString(),
                                     tvTitle.getText().toString(),
-                                    tvPost.getText().toString(),
+                                    tvLoc.getText().toString(),
                                     Constant.currentUser.getEmail().split("@")[0],
                                     Constant.currentUser.getEmail(),
-                                    tvLoc.getText().toString()));
+                                    tvPost.getText().toString()));
                             pbDialog.dismiss();
                             Toast.makeText(Tambah_Foto.this, "Uploaded!", Toast.LENGTH_SHORT).show();
                             finish();
@@ -257,10 +273,10 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                                 key,
                                 photoUrl.toString(),
                                 tvTitle.getText().toString(),
-                                tvPost.getText().toString(),
+                                tvLoc.getText().toString(),
                                 Constant.currentUser.getEmail().split("@")[0],
                                 Constant.currentUser.getEmail(),
-                                tvLoc.getText().toString()));
+                                tvPost.getText().toString()));
                         pbDialog.dismiss();
                         Toast.makeText(Tambah_Foto.this, "Uploaded!", Toast.LENGTH_SHORT).show();
                         finish();
@@ -284,7 +300,15 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                 isPicChange = true; // ubah state menjadi true untuk menandakan gambar telah dipilih
             }
         }
-
+        if (requestCode == PLACE_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format(
+                        ""+place.getName());
+                tvLoc.setText(toastMsg);
+                tvLoc.setEnabled(false);
+            }
+        }
         super.onActivityResult(requestCode, resultCode, data);
     }
 

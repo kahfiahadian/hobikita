@@ -1,6 +1,8 @@
 package com.example.rpl.hobi_kita_rev;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
@@ -9,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -33,6 +36,10 @@ public class DetilFoto extends AppCompatActivity {
             ImageView imgEvent;
     @BindView(R.id.tvDescription) //@BindView declare sekaligus inisialisasi view dengan menggunakan library ButterKnife
             TextView tvDescription;
+    @BindView(R.id.tvLocations)
+    TextView tvLocations;
+    @BindView(R.id.judul)
+    TextView judul;
     @BindView(R.id.rvKomentar) //@BindView declare sekaligus inisialisasi view dengan menggunakan library ButterKnife
             RecyclerView rvKomentar;
     @BindView(R.id.etKomentar) //@BindView declare sekaligus inisialisasi view dengan menggunakan library ButterKnife
@@ -61,6 +68,24 @@ public class DetilFoto extends AppCompatActivity {
         rvKomentar.setAdapter(mAdapter);
 
         loadIntent();
+        tvLocations.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                String loc = photo.getLoc().toString();
+
+                // Parse the location and create the intent.
+                Uri addressUri = Uri.parse("geo:0,0?q=" + loc);
+                Intent intent = new Intent(Intent.ACTION_VIEW, addressUri);
+
+                // Find an activity to handle the intent, and start that activity.
+                if (intent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(intent);
+                } else {
+                    Log.d("ImplicitIntents", "Can't handle this intent!");
+                }
+            }
+        });
     }
 
     @SuppressLint("SetTextI18n")
@@ -68,7 +93,9 @@ public class DetilFoto extends AppCompatActivity {
         if (getIntent().getExtras() != null) {
             photo = (FotoModel) getIntent().getSerializableExtra("photoData"); //ambil model yg dipassing
             Picasso.get().load(photo.getImage_url()).into(imgEvent); //load gambar menggukanan picasso
-            tvDescription.setText(photo.getDesc() + "\nby: " + photo.getName());
+            judul.setText("\nDipost oleh: " + photo.getName());
+            tvLocations.setText("Lokasi: \n" + photo.getLoc() + " (klik untuk memperbesar)");
+            tvDescription.setText("\nDeskripsi:\n" + photo.getDesc());
             setTitle(photo.getTitle()); //set judul toolbar
             loadComment(); //load comment
         }
