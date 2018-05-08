@@ -20,45 +20,27 @@ import com.example.rpl.hobi_kita_rev.R;
 import com.example.rpl.hobi_kita_rev.Constant;
 import com.example.rpl.hobi_kita_rev.FragmentFoto;
 
-public class MainActivity extends AppCompatActivity {
-
-    //Dekalarasi View
-    @BindView(R.id.btnAdd) //@BindView declare sekaligus inisialisasi view dengan menggunakan library ButterKnife
-            FloatingActionButton btnAdd;
+public class myupload extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_myupload);
         ButterKnife.bind(this);  //Binding ButterKnife pada activity
-        setTitle("Hobi Kita");
+        setTitle("My Uploads");
 
         //Mengatur tab dan fragment pada tab menggunakan fragmentstatepageritemadapter dari library SmartTabLayout
         FragmentStatePagerItemAdapter adapter = new FragmentStatePagerItemAdapter(
                 getSupportFragmentManager(), FragmentPagerItems.with(this)
-                .add(FragmentPagerItem.of("Event", FragmentFoto.class, FragmentFoto.arguments("event")))
-                .add(FragmentPagerItem.of("Kompetisi", FragmentFoto.class, FragmentFoto.arguments("kompetisi")))
-                .add(FragmentPagerItem.of("Sewa", FragmentFoto.class, FragmentFoto.arguments("sewa")))
+                .add(FragmentPagerItem.of("My Photo", FragmentFoto.class, FragmentFoto.arguments("myphoto")))
                 .create());
 
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewpager);
-        SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
+        //SmartTabLayout viewPagerTab = (SmartTabLayout) findViewById(R.id.viewpagertab);
 
-        if (Constant.currentUser == null) { //jika belum login
-            startActivity(new Intent(MainActivity.this, Login.class));
-            finish();
-        } else { //jika sudah login
-            viewPager.setAdapter(adapter); //masukkan fragment pada adapter viewpager
-            viewPagerTab.setViewPager(viewPager); //mengatur tab pada viewpager
-        }
+        viewPager.setAdapter(adapter); //masukkan fragment pada adapter viewpager
+        //viewPagerTab.setViewPager(viewPager); //mengatur tab pada viewpager
     }
-
-    //method untuk handling tombol add
-    @OnClick(R.id.btnAdd)
-    public void add() {
-        startActivity(new Intent(MainActivity.this, Tambah_Foto.class)); // panggil add photo activity
-    }
-
     //method untuk implement menu pada activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -73,11 +55,7 @@ public class MainActivity extends AppCompatActivity {
             case R.id.mnLogout:
                 Constant.mAuth.signOut(); //logout firebase
                 Constant.currentUser = null; //set global variable user null
-                startActivity(new Intent(MainActivity.this, Login.class)); //panggil login activity
-                finish();
-                break;
-            case R.id.myUpload:
-                startActivity(new Intent(MainActivity.this, myupload.class)); //panggil login activity
+                startActivity(new Intent(this, Login.class)); //panggil login activity
                 finish();
                 break;
         }

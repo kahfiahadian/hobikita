@@ -5,4 +5,7 @@
     <item android:title="Logout"
         android:id="@+id/mnLogout"
         app:showAsAction="never"/>
+    <item android:title="My Upload"
+        android:id="@+id/myUpload"
+        app:showAsAction="never"/>
 </menu>

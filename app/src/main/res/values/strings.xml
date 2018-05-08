@@ -11,4 +11,12 @@
     </string-array>
     <string name="title_activity_maps">Map</string>
     <string name="APIkey">AIzaSyBdpXza8mNYQj-Slwn9Mvo1p3_U168O7g8</string>
+    <string name="title_activity_navigation">navigation</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="my_account">My Account</string>
 </resources>
