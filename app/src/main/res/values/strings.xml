@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">HOBI KITA</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="judul_spinner">Pilih Kategori</string>
+    <string-array name="kategori">
+        <item>Pilih Kategori</item>
+        <item>Event</item>
+        <item>Kompetisi</item>
+        <item>Jual Beli</item>
+    </string-array>
+</resources>

@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "227260080118",
+    "firebase_url": "https://hobikita-rev.firebaseio.com",
+    "project_id": "hobikita-rev",
+    "storage_bucket": "hobikita-rev.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:227260080118:android:902ba87741066ab2",
+        "android_client_info": {
+          "package_name": "com.example.rpl.hobi_kita_rev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "227260080118-phkdf8k0roffpfq15kltlpv46q9ic70j.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.rpl.hobi_kita_rev",
+            "certificate_hash": "3e459087dd3c4291f9f4b58a1963d45d910b2c8a"
+          }
+        },
+        {
+          "client_id": "227260080118-o2807tgo99ov78v2jc6t3leno830i1da.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBjfLyJWqA1hWiBPPkB-6V3cj6DfgOcKg0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "227260080118-o2807tgo99ov78v2jc6t3leno830i1da.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
