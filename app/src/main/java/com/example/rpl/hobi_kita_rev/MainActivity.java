@@ -62,9 +62,11 @@ public class MainActivity extends AppCompatActivity {
     //method untuk implement menu pada activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu); // inflate atau memasukkan menu
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        // inflate atau memasukkan menu
         return super.onCreateOptionsMenu(menu);
     }
+
 
     //method untuk handling menu yang di klik dari daftar di menu yang di implement
     @Override

@@ -44,7 +44,7 @@ public class myupload extends AppCompatActivity {
     //method untuk implement menu pada activity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu); // inflate atau memasukkan menu
+        getMenuInflater().inflate(R.menu.spesific_menu, menu); // inflate atau memasukkan menu
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -56,6 +56,10 @@ public class myupload extends AppCompatActivity {
                 Constant.mAuth.signOut(); //logout firebase
                 Constant.currentUser = null; //set global variable user null
                 startActivity(new Intent(this, Login.class)); //panggil login activity
+                finish();
+                break;
+            case R.id.mnhome:
+                startActivity(new Intent(this, MainActivity.class)); //panggil main activity
                 finish();
                 break;
         }

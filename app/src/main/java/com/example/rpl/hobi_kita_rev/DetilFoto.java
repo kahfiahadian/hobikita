@@ -2,8 +2,10 @@ package com.example.rpl.hobi_kita_rev;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.design.widget.TextInputEditText;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -22,6 +24,12 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -51,11 +59,30 @@ public class DetilFoto extends AppCompatActivity {
     private ArrayList<CommentModel> commentList; //arraylist untuk menyimpan hasil load komentar
     private CommentAdapter mAdapter;
     FotoModel photo;
+    private Uri imageUri;
+    Button share;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detil_foto);
+        share = (Button) findViewById(R.id.tvShare);
+        share.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent shareIntent = new Intent();
+                shareIntent.setAction(Intent.ACTION_SEND);
+                shareIntent.putExtra(Intent.EXTRA_TEXT, "Deksripsi : " + photo.getDesc());
+                shareIntent.setType("text/plain");
+                startActivity(shareIntent);
+
+            }
+
+
+        });
+
+
         ButterKnife.bind(this); //Binding ButterKnife pada activity ini
         setSupportActionBar(toolbar);
         displayHomeAsUpEnabled();

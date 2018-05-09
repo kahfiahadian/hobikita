@@ -59,6 +59,8 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
             Button btnChoose;
     @BindView(R.id.tvLoc)
     TextInputEditText tvLoc;
+    @BindView(R.id.cari)
+    Button cari;
     private StorageReference refPhotoProfile;
     private Uri photoUrl;
     private ProgressDialog pbDialog;
@@ -80,7 +82,7 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
         btnChoose.setOnClickListener(this);
         btnPost.setOnClickListener(this);
         pbDialog = new ProgressDialog(this);
-        tvLoc.setOnClickListener(this);
+        cari.setOnClickListener(this);
         spin = (Spinner) findViewById(R.id.spin);
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, kategori);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -134,7 +136,7 @@ public class Tambah_Foto extends AppCompatActivity implements View.OnClickListen
                         .enableLog(false) // disabling log
                         .start(); // start image picker activity with request code
                 break;
-            case R.id.tvLoc:
+            case R.id.cari:
                 PlacePicker.IntentBuilder builder = new PlacePicker.IntentBuilder();
                 try {
                     //menjalankan place picker
