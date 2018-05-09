@@ -27,7 +27,7 @@ import com.example.rpl.hobi_kita_rev.FotoModel;
 public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.MyViewHolder>{
 
     //deklarasi variable
-    private List<FotoModel> photoList;
+    List<FotoModel> photoList;
     private Context context;
 
     //class viewholder untuk declare dan inisialisasi views pada row yang digunakan
@@ -113,6 +113,12 @@ public class PhotoAdapter extends RecyclerView.Adapter<PhotoAdapter.MyViewHolder
     @Override
     public int getItemCount() {
         return photoList.size();
+    }
+
+    //menghapus
+    public void dissmiss(int pos) {
+        photoList.remove(pos);
+        this.notifyItemRemoved(pos);
     }
 
 }

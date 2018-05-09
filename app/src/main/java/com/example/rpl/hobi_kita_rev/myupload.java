@@ -5,6 +5,8 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -20,8 +22,12 @@ import com.example.rpl.hobi_kita_rev.R;
 import com.example.rpl.hobi_kita_rev.Constant;
 import com.example.rpl.hobi_kita_rev.FragmentFoto;
 
+import java.util.ArrayList;
+
 public class myupload extends AppCompatActivity {
 
+    private FragmentFoto frag;
+    ArrayList<FotoModel> listPhoto;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +46,8 @@ public class myupload extends AppCompatActivity {
 
         viewPager.setAdapter(adapter); //masukkan fragment pada adapter viewpager
         //viewPagerTab.setViewPager(viewPager); //mengatur tab pada viewpager
+
+
     }
     //method untuk implement menu pada activity
     @Override

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,6 +32,7 @@ public class FragmentFoto extends Fragment {
             RecyclerView rvFoto;
     @BindView(R.id.swipeRefresh) //@BindView declare sekaligus inisialisasi view dengan menggunakan library ButterKnife
             SwipeRefreshLayout swipeRefresh;
+
 
     public FragmentFoto() {
         // Required empty public constructor
@@ -66,6 +68,7 @@ public class FragmentFoto extends Fragment {
         rvFoto.setAdapter(mAdapter);
         loadData();
 
+
         // refresh saat di load ulang dengan pull to refresh
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -73,13 +76,15 @@ public class FragmentFoto extends Fragment {
                 loadData();
             }
         });
+
+
         return view;
     }
 
     int commentCount = 0;
 
     //method untuk loaddata photo dari firebase
-    private void loadData() {
+    public void loadData() {
         if(menu.equals("event")) { //semua foto berdasarkan yang terbaru
             swipeRefresh.setRefreshing(true);
             Constant.refEvent.addValueEventListener(new ValueEventListener() {
@@ -169,6 +174,9 @@ public class FragmentFoto extends Fragment {
 
                         if(photo.getEmail().equals(Constant.currentUser.getEmail())) {
                             photoList.add(photo); //dimasukkan list photo
+                            ItemTouchHelper.Callback callback = new SwipeHelper(mAdapter);
+                            ItemTouchHelper helper = new ItemTouchHelper(callback);
+                            helper.attachToRecyclerView(rvFoto);
                             mAdapter.notifyDataSetChanged(); //refresh adapter
                         }
 

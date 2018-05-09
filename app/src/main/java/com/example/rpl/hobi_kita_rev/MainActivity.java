@@ -1,10 +1,13 @@
 package com.example.rpl.hobi_kita_rev;
 
+import android.content.ClipData;
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -52,6 +55,7 @@ public class MainActivity extends AppCompatActivity {
             viewPagerTab.setViewPager(viewPager); //mengatur tab pada viewpager
         }
     }
+
 
     //method untuk handling tombol add
     @OnClick(R.id.btnAdd)
